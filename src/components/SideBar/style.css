@@ -1,0 +1,12 @@
+.sidebar {
+    width: 35vw;
+    height: 72vh;
+    background-color: gray;
+    overflow-y: auto;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.sidebar li{
+    margin-top: 15px;
+}
