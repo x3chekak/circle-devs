@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styles from './Modal.module.scss'
-import useCountdownTimer from '/src/hooks/useCountdownTimer';
+import { useCountdownTimer } from './useCountDownTimer';
 
 interface ModalProps {
     initialTime: number;

@@ -5,7 +5,7 @@ type CountdownTimerReturn = {
     isActive: boolean;
 };
 
-const useCountdownTimer = (initialSeconds: number): CountdownTimerReturn => {
+export const useCountdownTimer = (initialSeconds: number): CountdownTimerReturn => {
 
     const [secondsLeft, setSecondsLeft] = useState(initialSeconds);
     const [isActive, setIsActive] = useState(true);
@@ -36,5 +36,3 @@ const useCountdownTimer = (initialSeconds: number): CountdownTimerReturn => {
 
     return { secondsLeft, isActive };
 };
-
-export default useCountdownTimer;

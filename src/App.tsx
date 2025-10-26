@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './App.module.scss'
-import {useDeleteItemMutation } from './redux';
+import {useDeleteItemMutation } from './redux/itemsApi';
 import { Header } from './components/Header/Header';
 import { SideBar } from './components/SideBar/SideBar';
 import { Footer } from './components/Footer/Footer';
