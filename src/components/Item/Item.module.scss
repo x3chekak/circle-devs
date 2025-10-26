@@ -1,0 +1,20 @@
+@import '/src/styles/variables';
+
+.item {
+    width: 100%;
+    background-color: $secondary-color;
+    border-radius: $border-radius;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    overflow-wrap: break-word;
+}
+
+.item p{
+    width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}

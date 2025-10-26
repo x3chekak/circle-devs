@@ -1,9 +1,9 @@
-import './style.css'
+import styles from './Footer.module.scss'
 
 export const Footer: React.FC = () => {
     return (
-        <header className="footer">
-            <h1>Awesome App</h1>
+        <header className={styles.footer}>
+            <span>Made by © x3chekak</span>
         </header>
     );
 }

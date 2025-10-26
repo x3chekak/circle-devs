@@ -1,15 +1,37 @@
 import { useEffect, useState } from 'react';
-import './style.css';
-
-import { useGetCategoryQuery, useAddCategoryMutation, useDeleteCategoryMutation } from '/src/redux';
+import styles from './SideBar.module.scss'
+import { useGetCategoryQuery, useAddCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } from '/src/redux';
 import { Item } from '../Item/Item';
 
-export const SideBar: React.FC = ({ onSelectCategory, onUpdateCategoriesCount, setSelectedCategoryId }) => {
+interface Category {
+    id: string;
+    title: string;
+}
 
-    const [newCategory, setNewCategory] = useState('')
+interface SideBarProps {
+    onSelectCategory: (categoryId: string) => void;
+    onUpdateCategoriesCount: (count: number) => void;
+    setSelectedCategoryId: (categoryId: string) => void;
+    selectedCategoryId: string | null; 
+}
+
+export const SideBar: React.FC<SideBarProps> = ({ 
+    onSelectCategory, 
+    onUpdateCategoriesCount, 
+    setSelectedCategoryId, 
+    selectedCategoryId 
+}) => {
+
+    const [newCategory, setNewCategory] = useState<string>('')
+
     const { data = [] } = useGetCategoryQuery();
-    const [addCategory, { isError }] = useAddCategoryMutation();
+    const [addCategory] = useAddCategoryMutation();
     const [deleteCategory] = useDeleteCategoryMutation();
+    const [updateCategory] = useUpdateCategoryMutation();
+
+    const handleEditCategoryName = async (id: string, newTitle: string) => {
+        await updateCategory({ id, title: newTitle });
+    };
 
     const handleAddCategory = async () => {
         if (newCategory) {
@@ -18,7 +40,7 @@ export const SideBar: React.FC = ({ onSelectCategory, onUpdateCategoriesCount, s
         }
     }
 
-    const handleDeleteCategory = async (id) => {
+    const handleDeleteCategory = async (id: string) => {
         await deleteCategory(id).unwrap();
         setSelectedCategoryId('')
     }
@@ -27,27 +49,25 @@ export const SideBar: React.FC = ({ onSelectCategory, onUpdateCategoriesCount, s
         onUpdateCategoriesCount(data.length);
     }, [data, onUpdateCategoriesCount]);
 
-
     return (
-        <aside className="sidebar">
+        <aside className={styles.sidebar}>
             <h2>Категории</h2>
-            
-                <div>
+            <div className={styles.sidebar_input}>
                     <input
                         type='text'
                         value={newCategory}
                         onChange={(e) => setNewCategory(e.target.value)}
                     />
-                    <button onClick={handleAddCategory}>add itme</button>
+                    <button onClick={handleAddCategory}>add</button>
                 </div>
                 <ul>
-                    {data.map(item => (
-                        <li key={item.id} onClick={() => onSelectCategory(item.id)}>
-                            <Item item={item} handleDelete={handleDeleteCategory}/>
+                {data.map((item: Category) => (
+                        <li key={item.id} onClick={() => onSelectCategory(item.id)} 
+                            className={item.id === selectedCategoryId ? styles.selected : ''}>
+                            <Item item={item} handleDelete={handleDeleteCategory} handleEdit={handleEditCategoryName} />
                         </li>
                     ))}
                 </ul>
-            
         </aside>
     );
 }

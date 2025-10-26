@@ -1,15 +1,28 @@
-import useCountdownTimer from './useCountdownTimer';
+import { useEffect } from 'react';
+import styles from './Modal.module.scss'
+import useCountdownTimer from '/src/hooks/useCountdownTimer';
 
-const Modal = ({ initialTime, onClose }) => {
-    const { secondsLeft, isActive } = useCountdownTimer(initialTime);
+interface ModalProps {
+    initialTime: number;
+    onConfirm(): void; 
+    onCancel(): void;
+}
+
+const Modal: React.FC<ModalProps> = ({ initialTime, onConfirm, onCancel }) => {
+
+    const { secondsLeft } = useCountdownTimer(initialTime);
+
+    useEffect(() => {
+        if (secondsLeft === 0) {
+            onConfirm();
+        }
+    }, [secondsLeft, onConfirm]);
 
     return (
-        <div className="modal">
-            <p>Вы уверены, что хотите удалить элемент?</p>
-            <p>Окно автоматически закроется через {secondsLeft} секунды.</p>
-            <button type="button" onClick={onClose}>
-                Отмена
-            </button>
+        <div className={styles.modal}>
+            <p>Элемент удалиться автоматически через {secondsLeft} сек.</p>
+            <button onClick={onConfirm}>Удалить</button>
+            <button onClick={onCancel}>Отменить</button>
         </div>
     );
 };

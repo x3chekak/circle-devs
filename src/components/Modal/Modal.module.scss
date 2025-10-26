@@ -1,0 +1,14 @@
+@import '/src/styles/variables';
+
+.modal {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 400px;
+    background-color: rgb(186, 142, 61);
+    height: auto;
+    text-align: center;
+    padding: 10px;
+    border-radius: $border-radius;
+}

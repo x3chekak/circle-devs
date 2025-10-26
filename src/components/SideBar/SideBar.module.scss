@@ -1,0 +1,24 @@
+@import '/src/styles/variables';
+
+.sidebar {
+    width: 35vw;
+    height: 72vh;
+    background-color: $primary-color;
+    overflow-y: auto;
+    padding: 1rem;
+    border-radius: $border-radius;
+}
+
+.sidebar li{
+    margin-top: 15px;
+}
+
+.selected {
+    border-radius: 15px;
+    outline: 4px solid rgb(99, 174, 99);
+}
+
+.sidebar_input {
+    display: flex;
+    flex-wrap: wrap;
+}

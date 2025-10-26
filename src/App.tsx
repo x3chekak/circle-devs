@@ -1,73 +1,74 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-
-import { useGetItemsQuery, useAddItemMutation, useDeleteItemMutation, useGetCategoryQuery } from './redux';
+import styles from './App.module.scss'
+import {useDeleteItemMutation } from './redux';
 import { Header } from './components/Header/Header';
 import { SideBar } from './components/SideBar/SideBar';
 import { Footer } from './components/Footer/Footer';
-import { Item } from './components/Item/Item';
 import Modal from './components/Modal/Modal';
+import { Main } from './components/Main/Main';
 
 function App() {
-  const [selectedCategoryId, setSelectedCategoryId] = useState('');
-  const [newItem, setNewItem] = useState('')
-  const { data = [], isLoading } = useGetItemsQuery({ categoryId: selectedCategoryId });
-  const [addItem, { isError }] = useAddItemMutation();
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>('');
   const [deleteItem] = useDeleteItemMutation();
-  const [categoriesCount, setCategoriesCount] = useState();
+  const [categoriesCount, setCategoriesCount] = useState<number | null>(null);
+  //////////////////////////////
+  const [showModal, setShowModal] = useState(false);
+  const [currentItemToDelete, setCurrentItemToDelete] = useState<string | null>(null);
+  ///////////////////////////
 
-  const handleAddItem = async () => {
-    if (newItem) {
-      await addItem({ title: newItem, categoryId: selectedCategoryId } ).unwrap();
-      setNewItem('');
-    }
-  }
-  const handleDeleteItem = async (id) => {
-    await deleteItem(id).unwrap();
+  const handleDeleteItem = async (id: string) => {
+    setCurrentItemToDelete(id);
+    setShowModal(true);
   }
 
-  const handleSelectCategory = (categoryId) => {
+  const confirmDeletion = async () => {
+      await deleteItem(currentItemToDelete).unwrap();
+      setShowModal(false);
+  };
+
+  const cancelDeletion = () => {
+    setShowModal(false);
+  };
+
+  const handleSelectCategory = (categoryId: string | null) => {
     setSelectedCategoryId(categoryId)
   }
 
-  const handleCategoriesCount = (count) => {
-    console.log('Категорий:', count);
+  const handleCategoriesCount = (count: number) => {
     setCategoriesCount(count);
   }
 
-      useEffect(() => {
-        if (categoriesCount === 0){
-          setSelectedCategoryId('')
-        }
-      },[categoriesCount]);
-  
-  console.log(data)
-  if (isLoading) return <h1>Loading...</h1>
-  return (
-    <div className='layout'>
-      <Header />
-      <div className='main'>
-        <SideBar onSelectCategory={handleSelectCategory} onUpdateCategoriesCount={handleCategoriesCount} setSelectedCategoryId={setSelectedCategoryId}/>
-        <div className='main_content'>
-          <h2>Списки</h2>
-          <div>
-            <input
-              type='text'
-              value={newItem}
-              onChange={(e) => setNewItem(e.target.value)}
-            />
-            <button disabled={selectedCategoryId === '' || categoriesCount === 0} onClick={handleAddItem}>add itme</button>
-          </div>
-          <ul>
-            {data.map(item => (
-              <li key={item.id} >
-                <Item item={item} handleDelete={handleDeleteItem}/>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+  useEffect(() => {
+    if (categoriesCount === 0) {
+      setSelectedCategoryId('')
+    }
+  }, [categoriesCount]);
 
+  return (
+    <div className={styles.layout}>
+      <Header />
+      <div className={styles.main}>
+        <SideBar
+          onSelectCategory={handleSelectCategory}
+          onUpdateCategoriesCount={handleCategoriesCount}
+          setSelectedCategoryId={setSelectedCategoryId}
+          selectedCategoryId={selectedCategoryId}
+        />
+        <Main
+          selectedCategoryId={selectedCategoryId}
+          onSelectCategory={handleSelectCategory}
+          categoriesCount={categoriesCount}
+          onUpdateCategoriesCount={handleCategoriesCount}
+          handleDeleteItem={handleDeleteItem}
+        />
+      </div>
+      {showModal && (
+        <Modal
+          initialTime={5}
+          onConfirm={confirmDeletion}
+          onCancel={cancelDeletion}
+        />
+      )}
       <Footer />
     </div>
   )

@@ -29,6 +29,14 @@ export const itemsApi = createApi({
             }),
             invalidatesTags: [{ type: 'items', id: 'LIST' }]
         }),
+        updateItem: build.mutation({
+            query: ({ id, title, categoryId }) => ({
+                url: `items/${id}`,
+                method: 'PUT',
+                body: { title, categoryId },
+            }),
+            invalidatesTags: [{ type: 'items', id: 'LIST' }],
+        }),
 
         ///////////////////////////////////////////////////////
         getCategory: build.query({
@@ -54,10 +62,19 @@ export const itemsApi = createApi({
                 method: 'DELETE',
             }),
             invalidatesTags: [{ type: 'categories', id: 'LIST' }, { type: 'items', id: 'LIST' }]
-        })
+        }),
+        updateCategory: build.mutation({
+            query: ({ id, title }) => ({
+                url: `categories/${id}`,
+                method: 'PUT',
+                body: { title },
+            }),
+            invalidatesTags: [{ type: 'categories', id: 'LIST' }],
+        }),
     })
 })
 
 export const {useGetItemsQuery, useAddItemMutation, useDeleteItemMutation,
-                useGetCategoryQuery, useAddCategoryMutation, useDeleteCategoryMutation
+                useGetCategoryQuery, useAddCategoryMutation, useDeleteCategoryMutation,
+                useUpdateCategoryMutation, useUpdateItemMutation
              } = itemsApi;

@@ -1,0 +1,13 @@
+@import '/src/styles/variables';
+@import '/src/styles/global';
+
+.header {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: $primary-color;
+    border-radius: $border-radius;
+}
+
