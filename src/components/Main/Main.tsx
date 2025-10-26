@@ -1,6 +1,6 @@
 import styles from './Main.module.scss'
 import React, { useState } from "react"
-import { useGetItemsQuery, useAddItemMutation, useUpdateItemMutation } from 'src/redux/itemsApi';
+import { useGetItemsQuery, useAddItemMutation, useUpdateItemMutation } from '/src/redux/itemsApi';
 import { Item } from "../Item/Item";
 
 interface Item {
