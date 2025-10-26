@@ -1,4 +1,24 @@
 {
-  "categories": [],
-  "items": []
+  "categories": [
+    {
+      "id": "002d",
+      "title": "adasdas"
+    },
+    {
+      "id": "336d",
+      "title": "asdasdasd"
+    }
+  ],
+  "items": [
+    {
+      "id": "ccf9",
+      "title": "asdasdasd",
+      "categoryId": "002d"
+    },
+    {
+      "id": "b127",
+      "title": "asdasdasd",
+      "categoryId": "336d"
+    }
+  ]
 }
