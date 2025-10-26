@@ -30,7 +30,7 @@ export const SideBar: React.FC<SideBarProps> = ({
     const [updateCategory] = useUpdateCategoryMutation();
 
     const handleEditCategoryName = async (id: string, newTitle: string) => {
-        await updateCategory({ id, title: newTitle });
+        await updateCategory({ id, body: { title: newTitle } });
     };
 
     const handleAddCategory = async () => {

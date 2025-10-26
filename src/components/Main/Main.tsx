@@ -30,7 +30,7 @@ export const Main: React.FC<MainProps> = ({
     const [updateItem] = useUpdateItemMutation();
 
     const handleEditItemName = async (id: string, newTitle: string ) => {
-        await updateItem({ id, title: newTitle, categoryId: selectedCategoryId });
+        await updateItem({ id, body: { title: newTitle } });
     };
 
     const handleAddItem = async () => {
