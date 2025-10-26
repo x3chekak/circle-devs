@@ -1,5 +1,5 @@
+import styles from './SideBar.module.scss';
 import { useEffect, useState } from 'react';
-import styles from './SideBar.module.scss'
 import { useGetCategoryQuery, useAddCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } from '/src/redux/itemsApi';
 import { Item } from '../Item/Item';
 

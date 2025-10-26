@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import styles from './Item.module.scss'
+import { useState } from 'react';
 
 interface ItemProps {
     handleDelete: (id: string) => void;

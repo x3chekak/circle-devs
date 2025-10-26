@@ -1,21 +1,20 @@
-import { useEffect, useState } from 'react';
 import styles from './App.module.scss'
-import {useDeleteItemMutation } from './redux/itemsApi';
+import { useEffect, useState } from 'react';
+import { useDeleteItemMutation } from './redux/itemsApi';
 import { Header } from './components/Header/Header';
 import { SideBar } from './components/SideBar/SideBar';
 import { Footer } from './components/Footer/Footer';
-import Modal from './components/Modal/Modal';
+import { Modal } from './components/Modal/Modal';
 import { Main } from './components/Main/Main';
 
 function App() {
 
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>('');
-  const [deleteItem] = useDeleteItemMutation();
   const [categoriesCount, setCategoriesCount] = useState<number | null>(null);
-  //////////////////////////////
   const [showModal, setShowModal] = useState(false);
   const [currentItemToDelete, setCurrentItemToDelete] = useState<string | null>(null);
-  ///////////////////////////
+
+  const [deleteItem] = useDeleteItemMutation();
 
   const handleDeleteItem = async (id: string) => {
     setCurrentItemToDelete(id);
@@ -23,8 +22,8 @@ function App() {
   }
 
   const confirmDeletion = async () => {
-      await deleteItem(currentItemToDelete).unwrap();
-      setShowModal(false);
+    await deleteItem(currentItemToDelete).unwrap();
+    setShowModal(false);
   };
 
   const cancelDeletion = () => {

@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import styles from './Modal.module.scss'
+import { useEffect } from 'react';
 import { useCountdownTimer } from './useCountDownTimer';
 
 interface ModalProps {
@@ -8,7 +8,7 @@ interface ModalProps {
     onCancel(): void;
 }
 
-const Modal: React.FC<ModalProps> = ({ initialTime, onConfirm, onCancel }) => {
+export const Modal: React.FC<ModalProps> = ({ initialTime, onConfirm, onCancel }) => {
 
     const { secondsLeft } = useCountdownTimer(initialTime);
 
@@ -27,4 +27,3 @@ const Modal: React.FC<ModalProps> = ({ initialTime, onConfirm, onCancel }) => {
     );
 };
 
-export default Modal;

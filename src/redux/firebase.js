@@ -1,4 +1,3 @@
-
 import { initializeApp } from "firebase/app";
 import { getFirestore, writeBatch } from 'firebase/firestore';
 
@@ -10,7 +9,6 @@ const firebaseConfig = {
   messagingSenderId: "279487439769",
   appId: "1:279487439769:web:efc7ac7393153185d52908"
 };
-
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
