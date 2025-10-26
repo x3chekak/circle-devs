@@ -8,6 +8,7 @@ import Modal from './components/Modal/Modal';
 import { Main } from './components/Main/Main';
 
 function App() {
+
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>('');
   const [deleteItem] = useDeleteItemMutation();
   const [categoriesCount, setCategoriesCount] = useState<number | null>(null);
